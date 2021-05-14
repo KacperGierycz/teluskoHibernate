@@ -1,15 +1,26 @@
 package telusko.DemoHib;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity //(name="alien_table")
+@Table(name="alien_table")
 public class Alien {
 
+	@Id
 	private int id;
+	@Transient
 	private String name;
+	@Column(name="alien_color")
 	private String color;
 	
-	public int getid() {
+	public int getId() {
 		return id;
 	}
-	public void setid(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getName() {
