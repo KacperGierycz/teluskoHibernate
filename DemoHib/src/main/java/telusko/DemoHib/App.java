@@ -17,10 +17,15 @@ public class App
 {
     public static void main( String[] args )
     {
+    	AlienName an=new AlienName();
+    	an.setFname("Tytus");
+    	an.setLname("Kacper");
+    	an.setMname("Patryk");
+    	
     	
     	Alien kacper = new Alien();
-    	kacper.setId(50);
-    	kacper.setName("tulecso");
+    	kacper.setId(51);
+    	kacper.setName(an);
     	kacper.setColor("red");
     	
     	
@@ -35,11 +40,16 @@ public class App
     	Session session=sf.openSession();
     	
     	Transaction tx=session.beginTransaction();
-    	  
     	
     	session.save(kacper);
+    	  
+    	kacper=(Alien)session.get(Alien.class, 51);
+    	
+
     
     	tx.commit();
+    	
+    	System.out.println(kacper);
     
     }
 }
