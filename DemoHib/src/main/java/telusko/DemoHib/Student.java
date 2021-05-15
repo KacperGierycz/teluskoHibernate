@@ -1,7 +1,12 @@
 package telusko.DemoHib;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Student {
@@ -10,6 +15,16 @@ public class Student {
 	private int sid;
 	private String name;
 	private int marks;
+	@OneToMany(mappedBy="student")
+	private List<Laptop >laptop=new ArrayList();
+	
+	
+	public List<Laptop> getLaptop() {
+		return laptop;
+	}
+	public void setLaptop(List<Laptop> laptop) {
+		this.laptop = laptop;
+	}
 	public int getSid() {
 		return sid;
 	}

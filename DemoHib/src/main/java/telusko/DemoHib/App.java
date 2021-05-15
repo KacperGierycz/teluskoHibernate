@@ -20,12 +20,15 @@ public class App
     	Laptop laptop= new Laptop();
     	laptop.setLid(101);
     	laptop.setLname("Dell");
+
     	
     	Student s = new Student();
     	s.setName("Kacper");
     	s.setSid(1);
     	s.setMarks(50);
+    	s.getLaptop().add(laptop);
     	
+    	laptop.getStudent().add(s);
     	
     	Configuration con = new Configuration().configure().addAnnotatedClass(Student.class).addAnnotatedClass(Laptop.class);    	
     	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
