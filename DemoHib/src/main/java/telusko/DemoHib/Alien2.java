@@ -5,27 +5,22 @@ import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-//@Table (name="alien_table")
 @Entity //(name="alien_table")
-public class Alien {
+//@Table (name="alien_table")
+public class Alien2 {
 
 	@Id
 	private int id;
-	private String Aname;
-	
-	@OneToMany(mappedBy="alien",fetch=FetchType.EAGER)
-	private Collection<Laptop> laps= new ArrayList<Laptop>();
-	
 //	@Transient
 //	private AlienName name;
 //	@Column(name="alien_color")
 //	private String color;
+	private String Aname;
 	
 	
 	public String getAname() {
@@ -35,7 +30,8 @@ public class Alien {
 	public void setAname(String aname) {
 		Aname = aname;
 	}
-
+	@OneToMany(mappedBy="alien")
+	private Collection<Laptop> laps= new ArrayList<Laptop>();
 	
 	public Collection<Laptop> getLaps(){
 		return laps;
@@ -52,11 +48,6 @@ public class Alien {
 		this.id = id;
 	}
 
-	@Override
-	public String toString() {
-		return "Alien [id=" + id + ", Aname=" + Aname + ", laps=" + laps + "]";
-	}
-
 //	public AlienName getName() {
 //		return name;
 //	}
@@ -69,7 +60,10 @@ public class Alien {
 //	public void setColor(String color) {
 //		this.color = color;
 //	}
-
+	@Override
+	public String toString() {
+		return "Alien [id=" + id + ", name=" + Aname + "]";
+	}
 	
 	
 	
