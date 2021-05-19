@@ -15,9 +15,74 @@ public class App
 	//AlienDataBase();    	
     //	StudentLaptop();
     //	AlienLaptop();
-    	AlienLaptopEagerLeazy();
+    //	AlienLaptopEagerLeazy();
+    //	AlienColorCaching();
+    	AlienColorCachingExercise();
     	
     }    
+    
+    public static void AlienColorCachingExercise() {
+    	
+    	AlienColor a=null;
+    	
+    	Configuration con = new Configuration().configure().addAnnotatedClass(AlienColor.class);    	
+    	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
+    	SessionFactory sf=con.buildSessionFactory(reg); 	
+    	Session session=sf.openSession();
+    	session.beginTransaction();
+    	
+
+    	
+    	a= (AlienColor) session.get(AlienColor.class, 1);
+    	
+    	System.out.println(a);
+    
+       	session.getTransaction().commit();
+       	session.close();
+       	
+       	Session session2=sf.openSession();
+       	session2.beginTransaction();
+    	a= (AlienColor) session2.get(AlienColor.class, 1);
+    
+    	System.out.println(a);
+    
+    	session2.getTransaction().commit();
+    	session2.close();
+    }
+
+    
+    public static void AlienColorCaching() {
+    	Configuration con = new Configuration().configure().addAnnotatedClass(AlienColor.class);    	
+    	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
+    	SessionFactory sf=con.buildSessionFactory(reg); 	
+    	Session session=sf.openSession();
+    	
+    	session.beginTransaction();
+    	
+    	AlienColor an=new AlienColor();
+    	an.setAname("Tytus");
+    	an.setColor("Green");
+    	an.setId(1);
+    	AlienColor an2=new AlienColor();
+    	an2.setAname("Kacper");
+    	an2.setColor("Green");
+    	an2.setId(2);
+    	AlienColor an3=new AlienColor();
+    	an3.setAname("Patryk");
+    	an3.setColor("Green");
+    	an3.setId(3);
+    	AlienColor an4=new AlienColor();
+    	an4.setAname("Cinek");
+    	an4.setColor("Green");
+    	an4.setId(4);
+    	
+    	session.save(an);
+    	session.save(an2);
+    	session.save(an3);
+    	session.save(an4);
+    	
+    	session.getTransaction().commit();
+    }
     
     public static void AlienLaptopEagerLeazy() {
     	

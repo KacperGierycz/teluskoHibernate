@@ -10,16 +10,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-@Entity //(name="alien_table")
+@Entity (name="alien_table")
 //@Table (name="alien_table")
-public class Alien2 {
+public class AlienColor {
 
 	@Id
 	private int id;
 //	@Transient
 //	private AlienName name;
 //	@Column(name="alien_color")
-//	private String color;
+	private String color;
 	private String Aname;
 	
 	
@@ -30,16 +30,16 @@ public class Alien2 {
 	public void setAname(String aname) {
 		Aname = aname;
 	}
-	@OneToMany(mappedBy="alien")
-	private Collection<Laptop> laps= new ArrayList<Laptop>();
+//	@OneToMany(mappedBy="alien")
+//	private Collection<Laptop> laps= new ArrayList<Laptop>();
+//	
+//	public Collection<Laptop> getLaps(){
+//		return laps;
+//	}
 	
-	public Collection<Laptop> getLaps(){
-		return laps;
-	}
-	
-	public void setLaps(Collection<Laptop> laps) {
-		this.laps=laps;
-	}
+//	public void setLaps(Collection<Laptop> laps) {
+//		this.laps=laps;
+//	}
 	
 	public int getId() {
 		return id;
@@ -54,16 +54,18 @@ public class Alien2 {
 //	public void setName(AlienName name) {
 //		this.name = name;
 //	}
-//	public String getColor() {
-//		return color;
-//	}
-//	public void setColor(String color) {
-//		this.color = color;
-//	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+
 	@Override
 	public String toString() {
-		return "Alien [id=" + id + ", name=" + Aname + "]";
+		return "AlienColor [id=" + id + ", color=" + color + ", Aname=" + Aname + "]";
 	}
+
 	
 	
 	
