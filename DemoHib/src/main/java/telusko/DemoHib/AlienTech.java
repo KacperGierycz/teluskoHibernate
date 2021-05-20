@@ -3,9 +3,10 @@ package telusko.DemoHib;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+@Entity
 public class AlienTech {
 
-	
+	@Id
 	private int aid;
 	private String aname;
 	private String tech;

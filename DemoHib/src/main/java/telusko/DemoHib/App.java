@@ -4,6 +4,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
@@ -30,10 +34,15 @@ public class App
     //	StudentSQL();
     //	LaptopsStates();
     //	AlienTech();
-    	Jpa()
+    	Jpa();
     }    
     
     public static void Jpa() {
+    	
+    	EntityManagerFactory emf= Persistence.createEntityManagerFactory("my-persistence-unit");
+    	EntityManager em=emf.createEntityManager();
+    	
+    	AlienTech a=em.find(AlienTech.class,4);
     	
     }
     
