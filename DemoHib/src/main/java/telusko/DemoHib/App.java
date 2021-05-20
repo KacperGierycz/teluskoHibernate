@@ -1,6 +1,8 @@
 package telusko.DemoHib;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -18,9 +20,51 @@ public class App
     //	AlienLaptop();
     //	AlienLaptopEagerLeazy();
     //	AlienColorCaching();
-    	AlienColorCachingExercise();
+    //	AlienColorCachingExercise();
+    	StudentSQL();
     	
     }    
+    
+    public static void StudentSQL() {
+    	
+    	Configuration con = new Configuration().configure("hibernateSQL.cfg.xml").addAnnotatedClass(StudentSQL.class);
+    	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
+    	SessionFactory sf=con.buildSessionFactory(reg); 	
+    	Session session=sf.openSession();
+    	session.beginTransaction();
+    	 
+//    	Random r = new Random();
+//    	
+//    	for(int i=1; i<=50;i++) {
+//    		StudentSQL s = new StudentSQL();
+//    		s.setSid(i);
+//    		s.setName("Name " +i);
+//    		s.setMarks(r.nextInt(100));
+//    		session.save(s);
+//    		
+//    	}
+    	int b =60;
+    	
+    	Query q= session.createQuery("select sum(marks) from StudentSQL s where s.marks > :b");
+    	q.setParameter("b", b);
+    	//Object[] student =(Object[]) q.uniqueResult();
+    //	List<StudentSQL> students=q.list();
+    	List students=(List) q.list();
+
+
+    	//List<Object[]> studentsO=(List<Object[]>) q.list();
+    	
+    	for(Object s:students) {
+    		System.out.println(s);
+    		//System.out.println(s[0]+" : "+s[1]+ " : "+ s[2]);
+    		//System.out.println(s);
+    	}
+        
+    	session.getTransaction().commit();
+    	session.close();
+    }
+
+    
     
     public static void AlienColorCachingExercise() {
     	
