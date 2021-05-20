@@ -17,6 +17,10 @@ import org.hibernate.service.ServiceRegistryBuilder;
 public class App 
 {
     public static void main( String[] args ){
+    	
+    	
+    	
+    	
 	//AlienDataBase();    	
     //	StudentLaptop();
     //	AlienLaptop();
@@ -24,9 +28,50 @@ public class App
     //	AlienColorCaching();
     //	AlienColorCachingExercise();
     //	StudentSQL();
-    	LaptopsStates();
+    //	LaptopsStates();
+    //	AlienTech();
+    	Jpa()
     }    
     
+    public static void Jpa() {
+    	
+    }
+    
+    public static void AlienTech(){
+    
+	Configuration con = new Configuration().configure().addAnnotatedClass(AlienTech.class);    	
+	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
+	SessionFactory sf=con.buildSessionFactory(reg); 	
+	Session session=sf.openSession();
+	
+	session.beginTransaction();
+	
+	AlienTech an=new AlienTech();
+	an.setAname("Tytus");
+	an.setTech("Java");
+	an.setAid(1);
+	AlienTech an2=new AlienTech();
+	an2.setAname("Kacper");
+	an2.setTech("SQL");
+	an2.setAid(2);
+	AlienTech an3=new AlienTech();
+	an3.setAname("Patryk");
+	an3.setTech("Hibernate");
+	an3.setAid(3);
+	AlienTech an4=new AlienTech();
+	an4.setAname("Cinek");
+	an4.setTech("Spring");
+	an4.setAid(4);
+	
+	session.save(an);
+	session.save(an2);
+	session.save(an3);
+	session.save(an4);
+	
+	session.getTransaction().commit();
+    
+    }
+	
     public static void LaptopsStates() {
     	Configuration con = new Configuration().configure().addAnnotatedClass(LaptopStates.class);
     	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
