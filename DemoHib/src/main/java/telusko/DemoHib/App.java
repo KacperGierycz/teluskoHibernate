@@ -33,8 +33,8 @@ public class App
     //	AlienColorCachingExercise();
     //	StudentSQL();
     //	LaptopsStates();
-    //	AlienTech();
-    	Jpa();
+    	AlienTech();
+    //	Jpa();
     }    
     
     public static void Jpa() {
