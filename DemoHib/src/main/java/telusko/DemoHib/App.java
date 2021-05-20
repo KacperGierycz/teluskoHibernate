@@ -2,6 +2,7 @@ package telusko.DemoHib;
 
 import java.util.Collection;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -31,9 +32,11 @@ public class App
     	Session session=sf.openSession();
     	session.beginTransaction();
     	
-
+    	Query q1 = session.createQuery("from alien_table where id=3");
+    	q1.setCacheable(true);
+    	a=(AlienColor)q1.uniqueResult();
     	
-    	a= (AlienColor) session.get(AlienColor.class, 1);
+   // 	a= (AlienColor) session.get(AlienColor.class, 1);
     	
     	System.out.println(a);
     
@@ -42,7 +45,11 @@ public class App
        	
        	Session session2=sf.openSession();
        	session2.beginTransaction();
-    	a= (AlienColor) session2.get(AlienColor.class, 1);
+   // 	a= (AlienColor) session2.get(AlienColor.class, 1);
+    	Query q2 = session2.createQuery("from alien_table where id=3");
+    	q2.setCacheable(true);
+
+    	a=(AlienColor)q2.uniqueResult();
     
     	System.out.println(a);
     
