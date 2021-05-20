@@ -2,9 +2,11 @@ package telusko.DemoHib;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -21,9 +23,53 @@ public class App
     //	AlienLaptopEagerLeazy();
     //	AlienColorCaching();
     //	AlienColorCachingExercise();
-    	StudentSQL();
-    	
+    //	StudentSQL();
+    	LaptopsStates();
     }    
+    
+    public static void LaptopsStates() {
+    	Configuration con = new Configuration().configure().addAnnotatedClass(LaptopStates.class);
+    	ServiceRegistry reg= new ServiceRegistryBuilder().applySettings(con.getProperties()).buildServiceRegistry();   	   	
+    	SessionFactory sf=con.buildSessionFactory(reg); 	
+    	Session session=sf.openSession();
+    	session.beginTransaction();
+    	
+    	LaptopStates l= (LaptopStates) session.load(LaptopStates.class, 2001);
+
+    	
+    	System.out.println(l);
+    	
+    	
+    
+    	
+    	
+    	
+//    	Random r = new Random();
+//    	
+//    	for(int i=1; i<=50;i++) {
+//    		LaptopStates s = new LaptopStates();
+//    		s.setLid(i);
+//    		s.setBrand("Brand " +i);
+//    		s.setPrice(r.nextInt(3000));
+//    		session.save(s);
+//    		
+//    	}
+//		LaptopStates s = new LaptopStates();
+//		s.setLid(111);
+//		s.setBrand("Apple ");
+//		s.setPrice(1200);
+//		session.save(s);
+//		
+//		LaptopStates s2 = new LaptopStates();
+//		s2.setLid(112);
+//		s2.setBrand("Dell " );
+//		s2.setPrice(0);
+//		session.save(s2);
+    	
+    	session.getTransaction().commit();
+    	session.close();
+    	
+    }
     
     public static void StudentSQL() {
     	
@@ -33,6 +79,21 @@ public class App
     	Session session=sf.openSession();
     	session.beginTransaction();
     	 
+    	// Native Queries
+    	SQLQuery query = session.createSQLQuery("select name,marks from studentSQL where marks>60");
+    //	query.addEntity(StudentSQL.class);
+    	
+    	query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+    	List<StudentSQL> students=query.list();
+    	
+    	for(Object o : students) {
+    		
+    		Map m=(Map)o;
+    		System.out.println(m.get("name") + " : " + m.get("marks"));
+    		
+    	}
+    	
+    	
 //    	Random r = new Random();
 //    	
 //    	for(int i=1; i<=50;i++) {
@@ -45,20 +106,20 @@ public class App
 //    	}
     	int b =60;
     	
-    	Query q= session.createQuery("select sum(marks) from StudentSQL s where s.marks > :b");
-    	q.setParameter("b", b);
+    //	Query q= session.createQuery("select sum(marks) from StudentSQL s where s.marks > :b");
+    //	q.setParameter("b", b);
     	//Object[] student =(Object[]) q.uniqueResult();
     //	List<StudentSQL> students=q.list();
-    	List students=(List) q.list();
+    //	List students=(List) q.list();
 
 
     	//List<Object[]> studentsO=(List<Object[]>) q.list();
     	
-    	for(Object s:students) {
-    		System.out.println(s);
-    		//System.out.println(s[0]+" : "+s[1]+ " : "+ s[2]);
-    		//System.out.println(s);
-    	}
+//    	for(Object s:students) {
+//    		System.out.println(s);
+//    		//System.out.println(s[0]+" : "+s[1]+ " : "+ s[2]);
+//    		//System.out.println(s);
+//    	}
         
     	session.getTransaction().commit();
     	session.close();
