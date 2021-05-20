@@ -1,16 +1,15 @@
 package telusko.DemoHib;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import javax.persistence.Column;
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity (name="alien_table")
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_ONLY)
 //@Table (name="alien_table")
 public class AlienColor {
 
